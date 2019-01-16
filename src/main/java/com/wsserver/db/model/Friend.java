@@ -8,6 +8,24 @@ public class Friend {
     private int id;
     private String name;
     private String account;
+    private Long ts;
+    private Integer act;
+
+    public Long getTs() {
+        return ts;
+    }
+
+    public void setTs(Long ts) {
+        this.ts = ts;
+    }
+
+    public Integer getAct() {
+        return act;
+    }
+
+    public void setAct(Integer act) {
+        this.act = act;
+    }
 
     public int getId() {
         return id;

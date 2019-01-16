@@ -12,7 +12,7 @@ public interface UserMapper{
 	public User getUser(@Param("account") String account);
 
 
-	public List<Friend> fList(@Param("ownerId") String id);
+	public List<Friend> fList(@Param("ownerId") String id,@Param("ts") Long ts);
 
 
 }

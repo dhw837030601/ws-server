@@ -34,43 +34,6 @@ public class EventPoolBuilder {
 	}
 	
 	public void build(final EventPool ep){
-//		ep.addEvent("msg", new SimpleEvent() {
-//			@Override
-//			public void onEvent(Packet pkg) {
-//				JSONObject obj = JSON.parseObject(pkg.getBody().toString());
-//				Msg m = new Msg(obj.getString("msg"),pkg.getFromId());
-//				Packet p = new Packet("msg");
-//				p.setBody(m);
-//				Collection<User> coll = UserCache.getAll();
-//				for(User u:coll){
-//					u.sendMsg(p);
-//				}
-//			}
-//		});
-//		ep.addEvent("rename", new SimpleEvent() {
-//			@Override
-//			public void onEvent(Packet pkg) {
-//				JSONObject obj = JSON.parseObject(pkg.getBody().toString());
-//				String id = pkg.getFromId();
-//				User u = UserCache.get(id);
-//				u.setName(obj.getString("name"));
-//				Packet p = new Packet("rename");
-//				p.setBody(u.getName());
-//				u.sendMsg(p);
-//
-//				ep.onEvent(new Packet("online","system"));
-//			}
-//		});
-//		ep.addEvent("online", new SimpleEvent() {
-//			@Override
-//			public void onEvent(Packet pkg) {
-//				Collection<User> coll = UserCache.getAll();
-//				pkg.setBody(coll);
-//				for(User u1:coll){
-//					u1.sendMsg(pkg);
-//				}
-//			}
-//		});
 		ep.addEvent("login", new SimpleEvent() {
 			@Override
 			public void onEvent(Packet pkg,ChannelHandlerContext ctx) {
@@ -105,7 +68,9 @@ public class EventPoolBuilder {
 					Packet p = new Packet("err","system","登陆无效,请重新登陆");
 					sendMsg(p,ctx);
 				} else {
-					List<Friend> fList = dao.fList(obj.getString("id"));
+					String id = obj.getString("id");
+					Long ts = obj.getLong("ts");
+					List<Friend> fList = dao.fList(id,ts);
 					Packet p = new Packet("fList","system",fList);
 					sendMsg(p,ctx);
 				}
